@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student picker</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="main.js" defer></script>
+  </head>
+
+  <body>
+    <div class="container">
+      <section class="left-section">
+        <h1>Random Student Picker</h1>
+        <p id="instructions-text">
+          Use the form to add students and the student list to delete students.
+          <br />
+          Pick a random student by clicking the
+          <strong>Pick a student</strong> button.
+        </p>
+
+        <br />
+        <!-- ADD STUDENT -->
+        <h2>Add a student</h2>
+        <form id="form">
+          <label for="new-student" id="name-input">Name:</label>
+          <input type="text" id="new-student" />
+          <button id="add-student-btn">Add student</button>
+          <button id="reset-btn">Reset</button>
+        </form>
+
+        <br />
+        <h2>Student list</h2>
+        <div class="student-list">
+          <!-- STUDENT LIST HERE -->
+        </div>
+      </section>
+
+      <section class="right-section">
+        <h2>Pick a random student</h2>
+        <div id="random-student">
+          <p>Random student will be shown here.</p>
+        </div>
+        <div id="random-student-outside">
+          <!-- This is where the random student name will show outside the box -->
+        </div>
+        <br />
+        <button id="pick-random-btn">Pick a student</button>
+      </section>
+    </div>
+  </body>
+</html>
