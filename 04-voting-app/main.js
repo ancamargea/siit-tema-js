@@ -47,20 +47,19 @@ const voteDisney = document.querySelector("#disney");
 const voteSkyShowtime = document.querySelector("#skyshowtime");
 
 const buttonNetflix = document.createElement("button");
-buttonNetflix.textContent = "Vote";
+buttonNetflix.textContent = "Add Vote";
 const buttonHboMax = document.createElement("button");
-buttonHboMax.textContent = "Vote";
+buttonHboMax.textContent = "Add Vote";
 const buttonDisney = document.createElement("button");
-buttonDisney.textContent = "Vote";
+buttonDisney.textContent = "Add Vote";
 const buttonSkyShowtime = document.createElement("button");
-buttonSkyShowtime.textContent = "Vote";
+buttonSkyShowtime.textContent = "Add Vote";
 
 voteNetflix.appendChild(buttonNetflix);
 voteHboMax.appendChild(buttonHboMax);
 voteDisney.appendChild(buttonDisney);
 voteSkyShowtime.appendChild(buttonSkyShowtime);
 
-// ATTACH CLICK HANDLERS
 buttonNetflix.addEventListener("click", () =>
   voteForService("netflix", buttonNetflix)
 );
@@ -77,6 +76,9 @@ buttonSkyShowtime.addEventListener("click", () =>
 // FUNCTION TO VOTE FOR A SERVICE
 function voteForService(service, buttonElement) {
   buttonElement.disabled = true;
+  const originalText = buttonElement.textContent;
+  buttonElement.textContent = "Voting...";
+
   fetch(`https://api.api-ninjas.com/v1/counter?id=${service}&hit=true`, {
     method: "GET",
     headers: {
@@ -99,5 +101,9 @@ function voteForService(service, buttonElement) {
     })
     .catch((err) => {
       console.error(`Error voting for ${service}: ${err.message}`);
+    })
+    .finally(() => {
+      buttonElement.disabled = false;
+      buttonElement.textContent = originalText;
     });
 }
