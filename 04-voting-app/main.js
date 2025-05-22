@@ -10,7 +10,7 @@ const votes = {
 
 // FETCH CURRENT VOTES ON PAGE LOAD
 services.forEach((service) => {
-  fetch(`https://api.api-ninjas.com/v1/counter?id=${service}&hit=true`, {
+  fetch(`https://api.api-ninjas.com/v1/counter?id=${service}&hit=false`, {
     method: "GET",
     headers: {
       "X-Api-Key": apiKey,
