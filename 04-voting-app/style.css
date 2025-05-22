@@ -1,5 +1,5 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   margin: 20px;
   background: #f9f9f9;
   color: #333;
@@ -7,32 +7,39 @@ body {
 }
 
 h1 {
-  margin-bottom: 2.5rem;
-  font-size: 2rem;
-  border-bottom: 2px solid #ddd;
+  margin-top: 5rem;
+  margin-bottom: 5rem;
+  font-size: 3rem;
+  border-bottom: 3px solid #ddd;
   padding-bottom: 1rem;
-  display: inline-block;
+}
+
+p {
+  font-weight: bold;
+  margin: 0.5rem 0 0.25rem;
+  color: #333;
+  font-size: 1rem;
+  text-align: center;
 }
 
 #voting-container {
-  max-width: 900px;
+  max-width: 1500px;
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
-  gap: 20px; /* space between boxes */
+  gap: 20px;
   justify-content: center;
   padding: 1rem 0;
 }
 
-/* Each service box as a fixed square card */
 #voting-container > div {
   background: white;
   border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
 
-  width: 180px;
-  height: 180px;
+  width: 300px;
+  height: 250px;
   padding: 1rem;
 
   display: flex;
@@ -43,7 +50,7 @@ h1 {
   text-align: center;
 }
 
-#voting-container > div h3 {
+#voting-container > div h2 {
   margin: 0;
   font-weight: 600;
   font-size: 1.3rem;
@@ -55,7 +62,15 @@ h1 {
   margin-top: 0.5rem;
 }
 
-/* Style the vote button */
+.vote-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+}
+
+/* Styling the vote button */
 button {
   background-color: #007bff;
   border: none;
@@ -65,7 +80,7 @@ button {
   cursor: pointer;
   font-size: 1rem;
   transition: background-color 0.3s ease;
-  margin-top: auto; /* push button to bottom */
+  margin-top: auto;
   width: 100%;
 }
 
