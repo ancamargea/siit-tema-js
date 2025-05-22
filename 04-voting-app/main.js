@@ -10,14 +10,13 @@ const votes = {
 
 // FETCH CURRENT VOTES ON PAGE LOAD
 services.forEach((service) => {
-  fetch(`https://api.api-ninjas.com/v1/counter?id=${service}&hit=false`, {
+  fetch(`https://api.api-ninjas.com/v1/counter?id=${service}`, {
     method: "GET",
     headers: {
       "X-Api-Key": apiKey,
       Accept: "application/json",
     },
   })
-    // Add more error messages for handling different situations
     .then((response) => {
       if (!response.ok) {
         return response.json().then((errData) => {
@@ -28,19 +27,15 @@ services.forEach((service) => {
       }
       return response.json();
     })
-
     .then((data) => {
       votes[service] = data.value;
       document.querySelector(`#votes-${service}`).textContent = votes[service];
     })
-
     .catch((err) => {
       if (err instanceof TypeError) {
-        console.error(
-          `Network error: Could not reach the API for ${service} (server might be down).`
-        );
+        console.error(`Network error: Could not reach the API for ${service}.`);
       } else {
-        console.error(`Error voting for ${service}: ${err.message}`);
+        console.error(`Error loading votes for ${service}: ${err.message}`);
       }
     });
 });
@@ -65,24 +60,23 @@ voteHboMax.appendChild(buttonHboMax);
 voteDisney.appendChild(buttonDisney);
 voteSkyShowtime.appendChild(buttonSkyShowtime);
 
-buttonNetflix.addEventListener("click", function () {
-  voteForService("netflix", buttonNetflix);
-});
-
-buttonHboMax.addEventListener("click", function () {
-  voteForService("hbo", buttonHboMax);
-});
-
-buttonDisney.addEventListener("click", function () {
-  voteForService("disney", buttonDisney);
-});
-
-buttonSkyShowtime.addEventListener("click", function () {
-  voteForService("skyshowtime", buttonSkyShowtime);
-});
+// ATTACH CLICK HANDLERS
+buttonNetflix.addEventListener("click", () =>
+  voteForService("netflix", buttonNetflix)
+);
+buttonHboMax.addEventListener("click", () =>
+  voteForService("hbo", buttonHboMax)
+);
+buttonDisney.addEventListener("click", () =>
+  voteForService("disney", buttonDisney)
+);
+buttonSkyShowtime.addEventListener("click", () =>
+  voteForService("skyshowtime", buttonSkyShowtime)
+);
 
 // FUNCTION TO VOTE FOR A SERVICE
 function voteForService(service, buttonElement) {
+  buttonElement.disabled = true;
   fetch(`https://api.api-ninjas.com/v1/counter?id=${service}&hit=true`, {
     method: "GET",
     headers: {
@@ -90,10 +84,20 @@ function voteForService(service, buttonElement) {
       Accept: "application/json",
     },
   })
-    .then((response) => response.json())
+    .then((response) => {
+      if (!response.ok) {
+        return response.json().then((errData) => {
+          const message = errData.error || "Unknown error";
+          throw new Error(message);
+        });
+      }
+      return response.json();
+    })
     .then((data) => {
       votes[service] = data.value;
       document.querySelector(`#votes-${service}`).textContent = votes[service];
     })
-    .catch((err) => console.error(`Error voting for ${service}:`, err));
+    .catch((err) => {
+      console.error(`Error voting for ${service}: ${err.message}`);
+    });
 }
